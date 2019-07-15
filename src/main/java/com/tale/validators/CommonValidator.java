@@ -56,7 +56,7 @@ public class CommonValidator {
         Validators.lessThan(MAX_TEXT_COUNT).test(param.getContent()).throwIfInvalid("文章内容");
 
         if (StringKit.isNotEmpty(param.getSlug())) {
-            if (param.getSlug().length() < 5) {
+            if (param.getSlug().length() < 2) {
                 throw new ValidatorException("路径太短了");
             }
             if (!TaleUtils.isPath(param.getSlug())) {
@@ -74,12 +74,12 @@ public class CommonValidator {
 
     public static void valid(LoginParam param) {
         Validators.notEmpty().test(param.getUsername()).throwIfInvalid("用户名");
-        Validators.notEmpty().test(param.getPassword()).throwIfInvalid("密码");
+        Validators.notEmpty().test(param.getPassword()).throwIfInvalid("登录密码");
 
         Validators.moreThan(4).test(param.getUsername()).throwIfInvalid("用户名");
         Validators.lessThan(20).test(param.getUsername()).throwIfInvalid("用户名");
-        Validators.moreThan(6).test(param.getPassword()).throwIfInvalid("用户名");
-        Validators.lessThan(14).test(param.getPassword()).throwIfInvalid("用户名");
+        Validators.moreThan(6).test(param.getPassword()).throwIfInvalid("登录密码");
+        Validators.lessThan(14).test(param.getPassword()).throwIfInvalid("登录密码");
     }
 
     public static void valid(InstallParam param) {

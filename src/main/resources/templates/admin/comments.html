@@ -97,15 +97,22 @@
             vueLoding = this.$loading.show();
         },
         mounted: function () {
-            this.load();
+            this.load(1);
         },
         methods: {
-            load: function () {
+            load: function (page) {
                 var $vm = this;
                 tale.get({
                     url: '/admin/api/comments',
+                    data: {
+                        page: page,
+                        limit: 12
+                    },
                     success: function (data) {
                         $vm.commentPage = data.payload
+                        if(!data.payload.rows){
+                            $vm.commentPage.rows = []
+                        }
                     },
                     error: function (error) {
                         console.log(error);

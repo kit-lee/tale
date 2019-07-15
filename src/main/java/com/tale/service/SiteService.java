@@ -120,7 +120,7 @@ public class SiteService {
      */
     public Statistics getStatistics() {
 
-        Statistics statistics = mapCache.get(Types.C_STATISTICS);
+        Statistics statistics = mapCache.get(Types.SYS_STATISTICS);
         if (null != statistics) {
             return statistics;
         }
@@ -143,7 +143,7 @@ public class SiteService {
         statistics.setTags(tags);
         statistics.setCategories(categories);
 
-        mapCache.set(Types.C_STATISTICS, statistics);
+        mapCache.set(Types.SYS_STATISTICS, statistics);
         return statistics;
     }
 
@@ -313,6 +313,15 @@ public class SiteService {
      */
     public Page<Comment> getComments(Integer cid, int page, int limit) {
         return commentsService.getComments(cid, page, limit);
+    }
+
+    /**
+     * 获取文章的评论总数
+     *
+     * @param cid 文章id
+     */
+    public long getCommentCount(Integer cid) {
+        return commentsService.getCommentCount(cid);
     }
 
     /**

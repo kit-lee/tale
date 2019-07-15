@@ -284,6 +284,25 @@ public final class Theme {
     }
 
     /**
+     * 截取文章摘要(返回HTML)
+     *
+     * @param value 文章内容
+     * @return 转换 markdown 为 html
+     */
+    public static String intro(String value) {
+        if (StringKit.isBlank(value)) {
+            return null;
+        }
+        int pos = value.indexOf("<!--more-->");
+        if (pos != -1) {
+            String html = value.substring(0, pos);
+            return TaleUtils.mdToHtml(html);
+        } else {
+            return TaleUtils.mdToHtml(value);
+        }
+    }
+
+    /**
      * 截取文章摘要
      *
      * @param value 文章内容
@@ -626,6 +645,19 @@ public final class Theme {
         }
         Page<Comment> comments = siteService.getComments(contents.getCid(), page, limit);
         return comments;
+    }
+
+    /**
+     * 获取当前文章/页面的评论数量
+     *
+     * @return 当前页面的评论数量
+     */
+    public static long commentsCount() {
+        Contents contents = current_article();
+        if (null == contents) {
+            return 0;
+        }
+        return siteService.getCommentCount(contents.getCid());
     }
 
     /**
